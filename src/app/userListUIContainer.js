@@ -1,6 +1,5 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import UserListData from './data/userListData';
 import UserListComponent from './userList.jsx';
 import styles from '../assets/css/components/user-list.css';
 
@@ -13,13 +12,14 @@ class UserListUIContainer extends React.Component{
         	isLoaded: false
         };
 
-        this.toggleSelect = this.toggleSelect.bind(this);
+       this.toggleSelect = this.toggleSelect.bind(this);
     }
 
     componentWillMount() {
 		this.setState({
-			users: UserListData 
+			users: this.props.users 
 		});
+
 	}
 
 	componentDidMount() {
@@ -29,7 +29,7 @@ class UserListUIContainer extends React.Component{
     }
 
 	render() {
-		return (<UserListComponent users={this.state.users} isLoaded={this.state.isLoaded} toggleSelect={this.toggleSelect} />);
+		return (<UserListComponent users={this.props.users} isLoaded={this.state.isLoaded}  toggleSelect={this.toggleSelect} />);
 	}
 
 	toggleSelect(userId){
@@ -38,12 +38,14 @@ class UserListUIContainer extends React.Component{
 			
 			if(this.state.users[i].id == userId){
 				var newUsers = this.state.users;
-
+				
 				newUsers[i].active = !this.state.users[i].active; 
 				
 				this.setState({
 					users: newUsers
 				});
+
+				break;
 			}
 		}
 	}
